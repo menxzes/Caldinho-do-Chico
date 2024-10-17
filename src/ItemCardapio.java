@@ -13,7 +13,16 @@ public class ItemCardapio {
         return nome;
     }
 
+    public String getTipo() {
+        return tipo;
+    }
+
     public float getPreco() {
         return preco;
+    }
+
+    @Override
+    public String toString() {
+        return nome + "- R$" + preco;
     }
 }
