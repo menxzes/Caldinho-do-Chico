@@ -106,43 +106,56 @@ public class Menu {
 
     private void criarComanda(Pedido pedido, Scanner scanner) {
         while (true) {
-            System.out.println("\n--- CATEGORIAS DO CARDÁPIO ---");
-            System.out.println("1. Petiscos");
-            System.out.println("2. Bebidas");
-            System.out.println("3. Drinks");
-            System.out.println("4. Caldinhos");
-            System.out.println("5. Sobremesas");
-            System.out.println("6. Pratos Principais");
-            System.out.print("Escolha uma categoria: ");
-            int escolhaCategoria = scanner.nextInt();
-            scanner.nextLine();
+            try {
+                System.out.println("\n--- CATEGORIAS DO CARDÁPIO ---");
+                System.out.println("1. Petiscos");
+                System.out.println("2. Bebidas");
+                System.out.println("3. Drinks");
+                System.out.println("4. Caldinhos");
+                System.out.println("5. Sobremesas");
+                System.out.println("6. Pratos Principais");
+                System.out.print("Escolha uma categoria: ");
 
-            List<ItemCardapio> itensFiltrados = filtrarItensPorCategoria(escolhaCategoria);
+                int escolhaCategoria = scanner.nextInt();
+                scanner.nextLine(); // Consumir quebra de linha
 
-            System.out.println("\n--- ITENS DISPONÍVEIS ---");
-            for (int i = 0; i < itensFiltrados.size(); i++) {
-                ItemCardapio item = itensFiltrados.get(i);
-                System.out.printf("%d. %s - R$%.2f\n", i + 1, item.getNome(), item.getPreco());
-            }
+                List<ItemCardapio> itensFiltrados = filtrarItensPorCategoria(escolhaCategoria);
 
-            System.out.print("Escolha um item: ");
-            int escolhaItem = scanner.nextInt() - 1;
-            scanner.nextLine();
+                if (itensFiltrados.isEmpty()) {
+                    System.out.println("Categoria inválida! Tente novamente.");
+                    continue;
+                }
 
-            if (escolhaItem >= 0 && escolhaItem < itensFiltrados.size()) {
-                ItemCardapio itemEscolhido = itensFiltrados.get(escolhaItem);
-                pedido.adicionarItem(itemEscolhido);
-                System.out.println(itemEscolhido.getNome() + " adicionado à comanda.");
-                System.out.printf("Valor total da comanda: R$%.2f\n", pedido.getValorTotal());
-            } else {
-                System.out.println("Item inválido! Tente novamente.");
-            }
+                System.out.println("\n--- ITENS DISPONÍVEIS ---");
+                for (int i = 0; i < itensFiltrados.size(); i++) {
+                    ItemCardapio item = itensFiltrados.get(i);
+                    System.out.printf("%d. %s - R$%.2f\n", i + 1, item.getNome(), item.getPreco());
+                }
 
-            System.out.print("Deseja adicionar mais um item? (s/n): ");
-            String continuar = scanner.nextLine().toLowerCase();
+                System.out.print("Escolha um item: ");
+                int escolhaItem = scanner.nextInt() - 1;
+                scanner.nextLine(); // Consumir quebra de linha
 
-            if (!continuar.equals("s")) {
-                break;
+                if (escolhaItem >= 0 && escolhaItem < itensFiltrados.size()) {
+                    ItemCardapio itemEscolhido = itensFiltrados.get(escolhaItem);
+                    pedido.adicionarItem(itemEscolhido);
+                    System.out.println(itemEscolhido.getNome() + " adicionado à comanda.");
+                    System.out.printf("Valor total da comanda: R$%.2f\n", pedido.getValorTotal());
+                } else {
+                    System.out.println("Item inválido! Tente novamente.");
+                }
+
+                System.out.print("Deseja adicionar mais um item? (s/n): ");
+                String continuar = scanner.nextLine().toLowerCase();
+
+                if (!continuar.equals("s")) {
+                    break;
+                }
+            } catch (InputMismatchException e) {
+                System.out.println("Entrada inválida! Por favor, insira um número.");
+                scanner.nextLine(); // Limpar o buffer de entrada
+            } catch (Exception e) {
+                System.out.println("Ocorreu um erro inesperado: " + e.getMessage());
             }
         }
     }
