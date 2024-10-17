@@ -1,6 +1,7 @@
 import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.List;
+import java.util.InputMismatchException;
 
 public class Menu {
 
@@ -63,30 +64,42 @@ public class Menu {
         Pedido pedido = new Pedido("001");
 
         while (true) {
-            System.out.println("\n--- MENU PRINCIPAL ---");
-            System.out.println("1. Criar Comanda");
-            System.out.println("2. Ver Comanda");
-            System.out.println("3. Verificar Disponibilidade de Mesas");
-            System.out.println("4. Sair");
-            System.out.print("Escolha uma opção: ");
-            int opcao = scanner.nextInt();
-            scanner.nextLine();
+            try {
+                System.out.println("\n--- MENU PRINCIPAL ---");
+                System.out.println("1. Criar Comanda");
+                System.out.println("2. Ver Comanda");
+                System.out.println("3. Verificar Disponibilidade de Mesas");
+                System.out.println("4. Imprimir Comanda");
+                System.out.println("5. Sair");
+                System.out.print("Escolha uma opção: ");
 
-            switch (opcao) {
-                case 1:
-                    criarComanda(pedido, scanner);
-                    break;
-                case 2:
-                    pedido.exibirItens();
-                    break;
-                case 3:
-                    System.out.println("Todas as mesas estão disponíveis.");
-                    break;
-                case 4:
-                    System.out.println("Encerrando o sistema...");
-                    break;
-                default:
-                    System.out.println("Opção inválida. Tente novamente.");
+                int escolha = scanner.nextInt();
+                scanner.nextLine();
+
+                switch (escolha) {
+                    case 1:
+                        criarComanda(pedido, scanner);
+                        break;
+                    case 2:
+                        pedido.exibirItens();
+                        break;
+                    case 3:
+                        System.out.println("Todas as mesas estão disponíveis.");
+                        break;
+                    case 4:
+                        SistemaDeImpressao.imprimirComanda(pedido, atendente);
+                        break;
+                    case 5:
+                        System.out.println("Encerrando o sistema...");
+                        return;
+                    default:
+                        System.out.println("Opção inválida! Por favor, escolha uma opção entre 1 e 5.");
+                }
+            } catch (InputMismatchException e) {
+                System.out.println("Entrada inválida! Por favor, insira um número.");
+                scanner.nextLine();
+            } catch (Exception e) {
+                System.out.println("Ocorreu um erro inesperado: " + e.getMessage());
             }
         }
     }
@@ -102,7 +115,7 @@ public class Menu {
             System.out.println("6. Pratos Principais");
             System.out.print("Escolha uma categoria: ");
             int escolhaCategoria = scanner.nextInt();
-            scanner.nextLine();  // Consumir quebra de linha
+            scanner.nextLine();
 
             List<ItemCardapio> itensFiltrados = filtrarItensPorCategoria(escolhaCategoria);
 
@@ -114,7 +127,7 @@ public class Menu {
 
             System.out.print("Escolha um item: ");
             int escolhaItem = scanner.nextInt() - 1;
-            scanner.nextLine();  // Consumir quebra de linha
+            scanner.nextLine();
 
             if (escolhaItem >= 0 && escolhaItem < itensFiltrados.size()) {
                 ItemCardapio itemEscolhido = itensFiltrados.get(escolhaItem);
