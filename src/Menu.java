@@ -16,46 +16,46 @@ public class Menu {
 
     private void inicializarCardapio() {
         // PETISCOS
-        itensCardapio.add(new ItemCardapio("Mini Coxinhas (8 unidades)", "Petiscos", 30));
-        itensCardapio.add(new ItemCardapio("Torresmo", "Petiscos", 20));
-        itensCardapio.add(new ItemCardapio("Batata Frita com Filé", "Petiscos", 45));
-        itensCardapio.add(new ItemCardapio("Macaxeira Frita", "Petiscos", 15));
-        itensCardapio.add(new ItemCardapio("Croquetes de Costela (8 unidades)", "Petiscos", 40));
+        itensCardapio.add(new ItemCardapio("Mini Coxinhas (8 unidades)", "Petiscos", 30.00f));
+        itensCardapio.add(new ItemCardapio("Torresmo", "Petiscos", 20.00f));
+        itensCardapio.add(new ItemCardapio("Batata Frita com Filé", "Petiscos", 45.00f));
+        itensCardapio.add(new ItemCardapio("Macaxeira Frita", "Petiscos", 15.00f));
+        itensCardapio.add(new ItemCardapio("Croquetes de Costela (8 unidades)", "Petiscos", 40.00f));
 
         // BEBIDAS
-        itensCardapio.add(new ItemCardapio("Cerveja 600ml", "Bebidas", 17));
-        itensCardapio.add(new ItemCardapio("Cachaças (Dose)", "Bebidas", 10));
-        itensCardapio.add(new ItemCardapio("Sucos (Copo)", "Bebidas", 10));
-        itensCardapio.add(new ItemCardapio("Refrigerantes", "Bebidas", 14));
-        itensCardapio.add(new ItemCardapio("Água", "Bebidas", 6));
+        itensCardapio.add(new ItemCardapio("Cerveja 600ml", "Bebidas", 17.00f));
+        itensCardapio.add(new ItemCardapio("Cachaças (Dose)", "Bebidas", 10.00f));
+        itensCardapio.add(new ItemCardapio("Sucos (Copo)", "Bebidas", 10.00f));
+        itensCardapio.add(new ItemCardapio("Refrigerantes", "Bebidas", 14.00f));
+        itensCardapio.add(new ItemCardapio("Água", "Bebidas", 6.00f));
 
         // DRINKS
-        itensCardapio.add(new ItemCardapio("Caipirinha", "Drinks", 15));
-        itensCardapio.add(new ItemCardapio("Gin Tônica", "Drinks", 20));
-        itensCardapio.add(new ItemCardapio("Mojito", "Drinks", 18));
-        itensCardapio.add(new ItemCardapio("Margarita", "Drinks", 25));
-        itensCardapio.add(new ItemCardapio("Caipiroska", "Drinks", 17));
+        itensCardapio.add(new ItemCardapio("Caipirinha", "Drinks", 15.00f));
+        itensCardapio.add(new ItemCardapio("Gin Tônica", "Drinks", 20.00f));
+        itensCardapio.add(new ItemCardapio("Mojito", "Drinks", 18.00f));
+        itensCardapio.add(new ItemCardapio("Margarita", "Drinks", 25.00f));
+        itensCardapio.add(new ItemCardapio("Caipiroska", "Drinks", 17.00f));
 
         // CALDINHOS
-        itensCardapio.add(new ItemCardapio("Caldinho de Feijão", "Caldinhos", 13));
-        itensCardapio.add(new ItemCardapio("Caldinho de Camarão", "Caldinhos", 17));
-        itensCardapio.add(new ItemCardapio("Caldinho de Marisco", "Caldinhos", 15));
-        itensCardapio.add(new ItemCardapio("Caldinho de Peixe", "Caldinhos", 13));
-        itensCardapio.add(new ItemCardapio("Caldinho de Caldeirada", "Caldinhos", 20));
+        itensCardapio.add(new ItemCardapio("Caldinho de Feijão", "Caldinhos", 13.00f));
+        itensCardapio.add(new ItemCardapio("Caldinho de Camarão", "Caldinhos", 17.00f));
+        itensCardapio.add(new ItemCardapio("Caldinho de Marisco", "Caldinhos", 15.00f));
+        itensCardapio.add(new ItemCardapio("Caldinho de Peixe", "Caldinhos", 13.00f));
+        itensCardapio.add(new ItemCardapio("Caldinho de Caldeirada", "Caldinhos", 20.00f));
 
         // SOBREMESAS
-        itensCardapio.add(new ItemCardapio("Brownie com Sorvete", "Sobremesas", 18));
-        itensCardapio.add(new ItemCardapio("Pudim", "Sobremesas", 13));
-        itensCardapio.add(new ItemCardapio("Pavê", "Sobremesas", 16));
-        itensCardapio.add(new ItemCardapio("Mousses", "Sobremesas", 13));
-        itensCardapio.add(new ItemCardapio("Torta de Limão (Fatia)", "Sobremesas", 15));
+        itensCardapio.add(new ItemCardapio("Brownie com Sorvete", "Sobremesas", 18.00f));
+        itensCardapio.add(new ItemCardapio("Pudim", "Sobremesas", 13.00f));
+        itensCardapio.add(new ItemCardapio("Pavê", "Sobremesas", 16.00f));
+        itensCardapio.add(new ItemCardapio("Mousses", "Sobremesas", 13.00f));
+        itensCardapio.add(new ItemCardapio("Torta de Limão (Fatia)", "Sobremesas", 15.00f));
 
         // PRATOS PRINCIPAIS
-        itensCardapio.add(new ItemCardapio("Feijoada", "Pratos Principais", 60));
-        itensCardapio.add(new ItemCardapio("Moqueca de Peixe", "Pratos Principais", 60));
-        itensCardapio.add(new ItemCardapio("Lasanha", "Pratos Principais", 40));
-        itensCardapio.add(new ItemCardapio("Carne de Sol de Bode", "Pratos Principais", 55));
-        itensCardapio.add(new ItemCardapio("Filé à Parmegiana", "Pratos Principais", 60));
+        itensCardapio.add(new ItemCardapio("Feijoada", "Pratos Principais", 60.00f));
+        itensCardapio.add(new ItemCardapio("Moqueca de Peixe", "Pratos Principais", 60.00f));
+        itensCardapio.add(new ItemCardapio("Lasanha", "Pratos Principais", 40.00f));
+        itensCardapio.add(new ItemCardapio("Carne de Sol de Bode", "Pratos Principais", 55.00f));
+        itensCardapio.add(new ItemCardapio("Filé à Parmegiana", "Pratos Principais", 60.00f));
     }
 
     public void exibirMenuPrincipal() {
@@ -93,7 +93,7 @@ public class Menu {
 
     private void criarComanda(Pedido pedido, Scanner scanner) {
         while (true) {
-            System.out.println("\n--- CATEGORIAS ---");
+            System.out.println("\n--- CATEGORIAS DO CARDÁPIO ---");
             System.out.println("1. Petiscos");
             System.out.println("2. Bebidas");
             System.out.println("3. Drinks");
@@ -101,38 +101,80 @@ public class Menu {
             System.out.println("5. Sobremesas");
             System.out.println("6. Pratos Principais");
             System.out.print("Escolha uma categoria: ");
-            int categoriaEscolhida = scanner.nextInt();
-            scanner.nextLine();
+            int escolhaCategoria = scanner.nextInt();
+            scanner.nextLine();  // Consumir quebra de linha
 
-            exibirPorCategoria(categoriaEscolhida, pedido, scanner);
+            List<ItemCardapio> itensFiltrados = filtrarItensPorCategoria(escolhaCategoria);
 
-            System.out.println("Deseja adicionar mais um item? (s/n): ");
-            String continuar = scanner.nextLine();
-            if (!continuar.equalsIgnoreCase("S")) break;
+            System.out.println("\n--- ITENS DISPONÍVEIS ---");
+            for (int i = 0; i < itensFiltrados.size(); i++) {
+                ItemCardapio item = itensFiltrados.get(i);
+                System.out.printf("%d. %s - R$%.2f\n", i + 1, item.getNome(), item.getPreco());
+            }
+
+            System.out.print("Escolha um item: ");
+            int escolhaItem = scanner.nextInt() - 1;
+            scanner.nextLine();  // Consumir quebra de linha
+
+            if (escolhaItem >= 0 && escolhaItem < itensFiltrados.size()) {
+                ItemCardapio itemEscolhido = itensFiltrados.get(escolhaItem);
+                pedido.adicionarItem(itemEscolhido);
+                System.out.println(itemEscolhido.getNome() + " adicionado à comanda.");
+                System.out.printf("Valor total da comanda: R$%.2f\n", pedido.getValorTotal());
+            } else {
+                System.out.println("Item inválido! Tente novamente.");
+            }
+
+            System.out.print("Deseja adicionar mais um item? (s/n): ");
+            String continuar = scanner.nextLine().toLowerCase();
+
+            if (!continuar.equals("s")) {
+                break;
+            }
         }
     }
 
-    private void exibirPorCategoria(int categoria, Pedido pedido, Scanner scanner) {
-        String[] categorias = {"Petiscos", "Bebidas", "Drinks", "Caldinhos", "Sobremesas", "Pratos Principais"};
-        String categoriaSelecionada = categorias[categoria - 1];
+    private List<ItemCardapio> filtrarItensPorCategoria(int categoria) {
+        String categoriaEscolhida = switch (categoria) {
+            case 1 -> "Petiscos";
+            case 2 -> "Bebidas";
+            case 3 -> "Drinks";
+            case 4 -> "Caldinhos";
+            case 5 -> "Sobremesas";
+            case 6 -> "Pratos Principais";
+            default -> "";
+        };
 
-        System.out.println("\n---" + categoriaSelecionada + " ---");
+        List<ItemCardapio> itensFiltrados = new ArrayList<>();
         for (ItemCardapio item : itensCardapio) {
-            if (item.getTipo().equals(categoriaSelecionada)) {
-                System.out.println("- " + item);
+            if (item.getTipo().equalsIgnoreCase(categoriaEscolhida)) {
+                itensFiltrados.add(item);
             }
         }
-
-        System.out.println("Digite o nome do item para adicionar: ");
-        String nomeItem = scanner.nextLine();
-
-        for (ItemCardapio item : itensCardapio) {
-            if (item.getNome().equalsIgnoreCase(nomeItem)) {
-                pedido.adicionarItem(item);
-                return;
-            }
-        }
-        System.out.println("Item não encontrado.");
+        return itensFiltrados;
     }
+
+//    private void exibirPorCategoria(int categoria, Pedido pedido, Scanner scanner) {
+//        String[] categorias = {"Petiscos", "Bebidas", "Drinks", "Caldinhos", "Sobremesas", "Pratos Principais"};
+//        String categoriaSelecionada = categorias[categoria - 1];
+//
+//        System.out.println("\n---" + categoriaSelecionada + " ---");
+//        for (ItemCardapio item : itensCardapio) {
+//            if (item.getTipo().equals(categoriaSelecionada)) {
+//                System.out.println("- " + item);
+//            }
+//        }
+//
+//        System.out.println("Digite o nome do item para adicionar: ");
+//        String nomeItem = scanner.nextLine();
+//
+//        for (ItemCardapio item : itensCardapio) {
+//            if (item.getNome().equalsIgnoreCase(nomeItem)) {
+//                pedido.adicionarItem(item);
+//                return;
+//            }
+//        }
+//        System.out.println("Item não encontrado.");
+//    }
 
 }
