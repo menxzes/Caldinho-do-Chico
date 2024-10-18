@@ -14,12 +14,13 @@ public class Menu {
 
     private List<ItemCardapio> itensCardapio;
     private Atendente atendente;
+    private boolean[] mesasOcupadas;
 
     public Menu() {
         itensCardapio = new ArrayList<>();
         inicializarCardapio();
         atendente = new Atendente("Guilherme", "A1");
-
+        mesasOcupadas = new boolean[10];
     }
 
     private void inicializarCardapio() {
@@ -68,7 +69,7 @@ public class Menu {
 
     public void exibirMenuPrincipal() {
         Scanner scanner = new Scanner(System.in);
-        Pedido pedido = new Pedido("001");
+        Pedido pedido = null;
 
         while (true) {
             try {
@@ -85,16 +86,29 @@ public class Menu {
 
                 switch (escolha) {
                     case 1:
-                        criarComanda(pedido, scanner);
+                        pedido = criarComanda(scanner);
                         break;
                     case 2:
-                        pedido.exibirItens();
+                        if (pedido != null) {
+                            pedido.exibirItens();
+                        } else {
+                            System.out.println("Nenhuma comanda foi criada ainda.");
+                        }
                         break;
                     case 3:
-                        System.out.println("Todas as mesas estão disponíveis.");
+                        verificarDisponibilidadeMesas();
                         break;
                     case 4:
-                        SistemaDeImpressao.imprimirComanda(pedido, atendente);
+                        if (pedido != null) {
+                            SistemaDeImpressao.imprimirComanda(pedido, atendente);
+                            if (atendente == null) {
+                                System.out.println("Erro: Atendente não está definido.");
+                            } else {
+                                SistemaDeImpressao.imprimirComanda(pedido, atendente);
+                            }
+                        } else {
+                            System.out.println("Nenhuma comanda disponível para impressão.");
+                        }
                         break;
                     case 5:
                         System.out.println("Encerrando o sistema...");
@@ -111,7 +125,17 @@ public class Menu {
         }
     }
 
-    private void criarComanda(Pedido pedido, Scanner scanner) {
+    private Pedido criarComanda(Scanner scanner) {
+        int mesaEscolhida = selecionarMesa(scanner);
+
+        if (mesaEscolhida == -1) {
+            System.out.println("Não há mesas disponíveis.");
+            return null;
+        }
+
+        Pedido pedido = new Pedido("Mesa " + mesaEscolhida);
+        System.out.println("Comanda criada para a Mesa " + mesaEscolhida + ".");
+
         while (true) {
             try {
                 System.out.println("\n--- CATEGORIAS DO CARDÁPIO ---");
@@ -163,6 +187,8 @@ public class Menu {
                 System.out.println("Ocorreu um erro inesperado: " + e.getMessage());
             }
         }
+
+        return pedido;
     }
 
     private List<ItemCardapio> filtrarItensPorCategoria(int categoria) {
@@ -186,6 +212,54 @@ public class Menu {
     }
 
 //    private void exibirPorCategoria(int categoria, model.Pedido pedido, Scanner scanner) {
+    private int selecionarMesa(Scanner scanner) {
+        if (todasMesasOcupadas()) {
+            System.out.println("Não há mesas disponíveis.");
+            return -1;
+        }
+
+        System.out.println("\n--- SELEÇÃO DE MESA ---");
+        verificarDisponibilidadeMesas();
+
+        while (true) {
+            try {
+                System.out.print("Escolha uma mesa (1-10): ");
+                int mesa = scanner.nextInt();
+                scanner.nextLine(); // Consumir quebra de linha
+
+                if (mesa < 1 || mesa > 10) {
+                    System.out.println("Número de mesa inválido! Escolha entre 1 e 10.");
+                } else if (mesasOcupadas[mesa - 1]) {
+                    System.out.println("Mesa já ocupada! Escolha outra mesa.");
+                } else {
+                    mesasOcupadas[mesa - 1] = true;
+                    return mesa;
+                }
+            } catch (InputMismatchException e) {
+                System.out.println("Entrada inválida! Por favor, insira um número.");
+                scanner.nextLine(); // Limpar o buffer de entrada
+            }
+        }
+    }
+
+    private boolean todasMesasOcupadas() {
+        for (boolean ocupada : mesasOcupadas) {
+            if (!ocupada) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    private void verificarDisponibilidadeMesas() {
+        System.out.println("\n--- DISPONIBILIDADE DE MESAS ---");
+        for (int i = 0; i < mesasOcupadas.length; i++) {
+            String status = mesasOcupadas[i] ? "Ocupada" : "Disponível";
+            System.out.printf("Mesa %d: %s\n", i + 1, status);
+        }
+    }
+
+//    private void exibirPorCategoria(int categoria, Pedido pedido, Scanner scanner) {
 //        String[] categorias = {"Petiscos", "Bebidas", "Drinks", "Caldinhos", "Sobremesas", "Pratos Principais"};
 //        String categoriaSelecionada = categorias[categoria - 1];
 //
