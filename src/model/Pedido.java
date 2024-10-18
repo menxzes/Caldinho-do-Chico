@@ -21,11 +21,21 @@ public class Pedido {
     }
 
     public void exibirItens() {
-        System.out.println("Itens na comanda:");
-        for (ItemCardapio item : itens) {
-            System.out.println("- " + item);
+        if (itens == null || itens.isEmpty()) {
+            System.out.println("Nenhum item na comanda.");
+        } else {
+            System.out.println("Itens na comanda:");
+            for (ItemCardapio item : itens) {
+                System.out.println("- " + item);
+            }
+            System.out.println("Valor total: R$" + valorTotal);
         }
-        System.out.println("Valor total: R$" + valorTotal);
+    }
+
+    public void limparItens() {
+        this.itens = null;
+        this.valorTotal = 0;
+        System.out.println("Comanda finalizada e limpa.");
     }
 
     public List<ItemCardapio> getItens() {

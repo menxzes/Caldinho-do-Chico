@@ -78,7 +78,8 @@ public class Menu {
                 System.out.println("2. Ver Comanda");
                 System.out.println("3. Verificar Disponibilidade de Mesas");
                 System.out.println("4. Imprimir Comanda");
-                System.out.println("5. Sair");
+                System.out.println("5. Gerar Relatório Financeiro");
+                System.out.println("6. Sair");
                 System.out.print("Escolha uma opção: ");
 
                 int escolha = scanner.nextInt();
@@ -110,7 +111,8 @@ public class Menu {
                             System.out.println("Nenhuma comanda disponível para impressão.");
                         }
                         break;
-                    case 5:
+
+                    case 6:
                         System.out.println("Encerrando o sistema...");
                         return;
                     default:
