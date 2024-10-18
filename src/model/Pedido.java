@@ -4,12 +4,15 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Pedido {
-    private String id;
+    private String mesa;
+    private static int contadorId = 0;
+    private int id;
     private List<ItemCardapio> itens;
     private float valorTotal;
 
-    public Pedido(String id) {
-        this.id = id;
+    public Pedido(String mesa) {
+        this.mesa = mesa;
+        this.id = ++contadorId;;
         this.itens = new ArrayList<>();
         this.valorTotal = 0;
     }
@@ -52,5 +55,11 @@ public class Pedido {
 
     public void setValorTotal(float valorTotal) {
         this.valorTotal = valorTotal;
+    }
+
+    @Override
+    public String toString() {
+        String result = "Pedido" + id + " - Valor total: R$" + valorTotal;
+        return result;
     }
 }

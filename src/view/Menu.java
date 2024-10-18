@@ -1,9 +1,6 @@
 package view;
 
-import model.Atendente;
-import model.ItemCardapio;
-import model.Pedido;
-import model.SistemaDeImpressao;
+import model.*;
 
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -70,6 +67,7 @@ public class Menu {
     public void exibirMenuPrincipal() {
         Scanner scanner = new Scanner(System.in);
         Pedido pedido = null;
+        GestaoFinanceira gestaoFinanceira = new GestaoFinanceira();
 
         while (true) {
             try {
@@ -101,22 +99,23 @@ public class Menu {
                         break;
                     case 4:
                         if (pedido != null) {
-                            SistemaDeImpressao.imprimirComanda(pedido, atendente);
                             if (atendente == null) {
                                 System.out.println("Erro: Atendente não está definido.");
                             } else {
-                                SistemaDeImpressao.imprimirComanda(pedido, atendente);
+                                SistemaDeImpressao.imprimirComanda(pedido, atendente, gestaoFinanceira);
                             }
                         } else {
                             System.out.println("Nenhuma comanda disponível para impressão.");
                         }
                         break;
-
+                    case 5:
+                        gestaoFinanceira.exibirReceitaTotal();
+                        break;
                     case 6:
                         System.out.println("Encerrando o sistema...");
                         return;
                     default:
-                        System.out.println("Opção inválida! Por favor, escolha uma opção entre 1 e 5.");
+                        System.out.println("Opção inválida! Por favor, escolha uma opção entre 1 e 6.");
                 }
             } catch (InputMismatchException e) {
                 System.out.println("Entrada inválida! Por favor, insira um número.");
@@ -239,7 +238,7 @@ public class Menu {
                 }
             } catch (InputMismatchException e) {
                 System.out.println("Entrada inválida! Por favor, insira um número.");
-                scanner.nextLine(); // Limpar o buffer de entrada
+                scanner.nextLine();
             }
         }
     }
