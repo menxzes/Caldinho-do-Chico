@@ -1,3 +1,5 @@
+package model;
+
 public class Mesa {
 	private int idMesa;
 	private boolean disponivel;

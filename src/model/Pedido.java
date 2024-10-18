@@ -1,3 +1,5 @@
+package model;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -18,10 +20,6 @@ public class Pedido {
         System.out.println(item.getNome() + " adicionado à comanda. Total: R$" + valorTotal);
     }
 
-    public float getValorTotal() {
-        return valorTotal;
-    }
-
     public void exibirItens() {
         System.out.println("Itens na comanda:");
         for (ItemCardapio item : itens) {
@@ -30,7 +28,19 @@ public class Pedido {
         System.out.println("Valor total: R$" + valorTotal);
     }
 
-//    public void isReady() {
-//        System.out.println("Pedido pronto para ser servido.");
-//    }
+    public List<ItemCardapio> getItens() {
+        return itens;
+    }
+
+    public void setItens(List<ItemCardapio> itens) {
+        this.itens = itens;
+    }
+
+    public float getValorTotal() {
+        return valorTotal;
+    }
+
+    public void setValorTotal(float valorTotal) {
+        this.valorTotal = valorTotal;
+    }
 }

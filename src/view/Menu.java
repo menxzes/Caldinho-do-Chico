@@ -1,3 +1,10 @@
+package view;
+
+import model.Atendente;
+import model.ItemCardapio;
+import model.Pedido;
+import model.SistemaDeImpressao;
+
 import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.List;
@@ -139,8 +146,6 @@ public class Menu {
                 if (escolhaItem >= 0 && escolhaItem < itensFiltrados.size()) {
                     ItemCardapio itemEscolhido = itensFiltrados.get(escolhaItem);
                     pedido.adicionarItem(itemEscolhido);
-                    System.out.println(itemEscolhido.getNome() + " adicionado à comanda.");
-                    System.out.printf("Valor total da comanda: R$%.2f\n", pedido.getValorTotal());
                 } else {
                     System.out.println("Item inválido! Tente novamente.");
                 }
@@ -180,12 +185,12 @@ public class Menu {
         return itensFiltrados;
     }
 
-//    private void exibirPorCategoria(int categoria, Pedido pedido, Scanner scanner) {
+//    private void exibirPorCategoria(int categoria, model.Pedido pedido, Scanner scanner) {
 //        String[] categorias = {"Petiscos", "Bebidas", "Drinks", "Caldinhos", "Sobremesas", "Pratos Principais"};
 //        String categoriaSelecionada = categorias[categoria - 1];
 //
 //        System.out.println("\n---" + categoriaSelecionada + " ---");
-//        for (ItemCardapio item : itensCardapio) {
+//        for (model.ItemCardapio item : itensCardapio) {
 //            if (item.getTipo().equals(categoriaSelecionada)) {
 //                System.out.println("- " + item);
 //            }
@@ -194,7 +199,7 @@ public class Menu {
 //        System.out.println("Digite o nome do item para adicionar: ");
 //        String nomeItem = scanner.nextLine();
 //
-//        for (ItemCardapio item : itensCardapio) {
+//        for (model.ItemCardapio item : itensCardapio) {
 //            if (item.getNome().equalsIgnoreCase(nomeItem)) {
 //                pedido.adicionarItem(item);
 //                return;

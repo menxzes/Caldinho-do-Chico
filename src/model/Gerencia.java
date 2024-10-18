@@ -1,3 +1,5 @@
+package model;
+
 public class Gerencia {
     private String id;
     private String nome;

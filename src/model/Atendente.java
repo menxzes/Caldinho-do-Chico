@@ -1,3 +1,5 @@
+package model;
+
 public class Atendente {
     private String nome;
     private String id;
@@ -16,6 +18,6 @@ public class Atendente {
     }
 
     public void exibirInformacoes() {
-        System.out.println("Atendente: " + nome + " (ID: " + id + ")");
+        System.out.println("model.Atendente: " + nome + " (ID: " + id + ")");
     }
 }

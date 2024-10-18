@@ -1,3 +1,5 @@
+package model;
+
 public class ItemCardapio {
     private String nome;
     private String tipo;
