@@ -259,28 +259,4 @@ public class Menu {
             System.out.printf("Mesa %d: %s\n", i + 1, status);
         }
     }
-
-//    private void exibirPorCategoria(int categoria, Pedido pedido, Scanner scanner) {
-//        String[] categorias = {"Petiscos", "Bebidas", "Drinks", "Caldinhos", "Sobremesas", "Pratos Principais"};
-//        String categoriaSelecionada = categorias[categoria - 1];
-//
-//        System.out.println("\n---" + categoriaSelecionada + " ---");
-//        for (model.ItemCardapio item : itensCardapio) {
-//            if (item.getTipo().equals(categoriaSelecionada)) {
-//                System.out.println("- " + item);
-//            }
-//        }
-//
-//        System.out.println("Digite o nome do item para adicionar: ");
-//        String nomeItem = scanner.nextLine();
-//
-//        for (model.ItemCardapio item : itensCardapio) {
-//            if (item.getNome().equalsIgnoreCase(nomeItem)) {
-//                pedido.adicionarItem(item);
-//                return;
-//            }
-//        }
-//        System.out.println("Item não encontrado.");
-//    }
-
 }
