@@ -1,5 +1,5 @@
 # Caldinho do Chico
-<img src="images\se tu me quiseres.jpeg" alt="Exemplo imagem">
+<img src="images\se tu me quiseres.jpg" alt="Exemplo imagem">
 
 > Um sistema de gestão de pedidos de um bar, garantindo eficiência no funcionamento do estabelecimento para melhor atender seus clientes.
 
