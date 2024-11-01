@@ -93,11 +93,13 @@ public class Pedido {
                     System.out.println("Item inválido! Tente novamente.");
                 }
 
-                System.out.print("Deseja adicionar mais um item? (s/n): ");
-                String continuar = scanner.nextLine().toLowerCase();
+                System.out.print("Deseja adicionar mais um item? (S/N): ");
+                String continuar = scanner.nextLine().trim().toUpperCase();
 
-                if (!continuar.equals("s")) {
+                if (continuar.equals("N")) {
                     break;
+                } else if (!continuar.equals("S")) {
+                    System.out.println("Opção inválida! Por favor, digite 'S' para sim ou 'N' para não.");
                 }
             } catch (InputMismatchException e) {
                 System.out.println("Entrada inválida! Por favor, insira um número.");
