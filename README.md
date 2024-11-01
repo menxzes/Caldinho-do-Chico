@@ -7,7 +7,7 @@
 
 O diagrama de casos de uso serve para fonecer, visualmente, uma apresentação conceitual de funções necessárias para uso.
 
-<img src="images\Diagrama de casos de uso.jpeg" alt="Exemplo imagem">
+<img src="images\diagraminha.png" alt="Exemplo imagem">
 
 ## Diagrama de Classes UML
 
