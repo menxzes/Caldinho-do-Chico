@@ -5,6 +5,9 @@ import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.List;
 import java.util.Scanner;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
 
 import static model.ItemCardapio.getItensCardapio;
 
@@ -14,6 +17,8 @@ public class Pedido {
     private int id;
     private static List<ItemCardapio> itens = getItensCardapio();
     private float valorTotal;
+    private int mesaId; // Adicione este campo na classe Pedido
+
 
     public Pedido(String mesa) {
         this.mesa = mesa;
@@ -141,6 +146,35 @@ public class Pedido {
 
     public float getValorTotal() {
         return valorTotal;
+    }
+
+    public void salvarPedido() {
+        try (Connection conn = DataBaseConnection.getConnection()) {
+            String sql = "INSERT INTO pedidos (mesa_id, valor_total) VALUES (?, ?)";
+            PreparedStatement stmt = conn.prepareStatement(sql);
+            stmt.setInt(1, mesaId);
+            stmt.setFloat(2, valorTotal);
+            stmt.executeUpdate();
+
+            System.out.println("Pedido da Mesa " + mesaId + " registrado no banco.");
+        } catch (SQLException e) {
+            System.out.println("Erro ao salvar pedido: " + e.getMessage());
+        }
+    }
+
+    public void atualizarValorTotal(float novoValor) {
+        try (Connection conn = DataBaseConnection.getConnection()) {
+            String sql = "UPDATE pedidos SET valor_total = ? WHERE id = ?";
+            PreparedStatement stmt = conn.prepareStatement(sql);
+            stmt.setFloat(1, novoValor);
+            stmt.setInt(2, id);
+            stmt.executeUpdate();
+            this.valorTotal = novoValor;
+
+            System.out.println("Valor total do pedido atualizado.");
+        } catch (SQLException e) {
+            System.out.println("Erro ao atualizar o pedido: " + e.getMessage());
+        }
     }
 
     @Override
