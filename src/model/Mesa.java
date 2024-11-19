@@ -2,6 +2,11 @@ package model;
 
 import java.util.InputMismatchException;
 import java.util.Scanner;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+
 
 public class Mesa {
 	public boolean[] getMesasOcupadas;
@@ -68,6 +73,39 @@ public class Mesa {
 				System.out.println("Entrada inválida! Por favor, insira um número.");
 				scanner.nextLine();
 			}
+		}
+	}
+
+	public void salvarMesa() {
+		try (Connection conn = DataBaseConnection.getConnection()) {
+			String sql = "INSERT INTO mesas (disponivel) VALUES (?)";
+			PreparedStatement stmt = conn.prepareStatement(sql, PreparedStatement.RETURN_GENERATED_KEYS);
+			stmt.setBoolean(1, disponivel);
+			stmt.executeUpdate();
+
+			ResultSet rs = stmt.getGeneratedKeys();
+			if (rs.next()) {
+				this.idMesa = rs.getInt(1);
+			}
+
+			System.out.println("Mesa " + idMesa + " registrada no banco.");
+		} catch (SQLException e) {
+			System.out.println("Erro ao salvar mesa: " + e.getMessage());
+		}
+	}
+
+	public void atualizarDisponibilidade(boolean novoStatus) {
+		try (Connection conn = DataBaseConnection.getConnection()) {
+			String sql = "UPDATE mesas SET disponivel = ? WHERE id = ?";
+			PreparedStatement stmt = conn.prepareStatement(sql);
+			stmt.setBoolean(1, novoStatus);
+			stmt.setInt(2, idMesa);
+			stmt.executeUpdate();
+			this.disponivel = novoStatus;
+
+			System.out.println("Disponibilidade da mesa " + idMesa + " atualizada.");
+		} catch (SQLException e) {
+			System.out.println("Erro ao atualizar mesa: " + e.getMessage());
 		}
 	}
 
