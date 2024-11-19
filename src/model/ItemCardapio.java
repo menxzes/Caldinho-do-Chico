@@ -2,6 +2,10 @@ package model;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 
 public class ItemCardapio {
     private String nome;
@@ -69,6 +73,35 @@ public class ItemCardapio {
 
     public float getPreco() {
         return preco;
+    }
+
+    public void salvarItem() {
+        try (Connection conn = DataBaseConnection.getConnection()) {
+            String sql = "INSERT INTO itens_cardapio (nome, preco, tipo) VALUES (?, ?, ?)";
+            PreparedStatement stmt = conn.prepareStatement(sql);
+            stmt.setString(1, nome);
+            stmt.setFloat(2, preco);
+            stmt.setString(3, tipo);
+            stmt.executeUpdate();
+
+            System.out.println("Item " + nome + " adicionado ao cardápio.");
+        } catch (SQLException e) {
+            System.out.println("Erro ao salvar item no cardápio: " + e.getMessage());
+        }
+    }
+
+    public static void carregarCardapio() {
+        try (Connection conn = DataBaseConnection.getConnection()) {
+            String sql = "SELECT * FROM itens_cardapio";
+            PreparedStatement stmt = conn.prepareStatement(sql);
+            ResultSet rs = stmt.executeQuery();
+
+            while (rs.next()) {
+                System.out.println("Item: " + rs.getString("nome") + " - R$" + rs.getFloat("preco"));
+            }
+        } catch (SQLException e) {
+            System.out.println("Erro ao carregar o cardápio: " + e.getMessage());
+        }
     }
 
     @Override
