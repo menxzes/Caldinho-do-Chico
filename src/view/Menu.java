@@ -38,33 +38,43 @@ public class Menu {
 
                 switch (escolha) {
                     case 1:
-                        criarComanda(scanner);
+                        // Criar nova comanda e salvar no banco
+                        pedido = criarComanda(scanner); // Aqui você cria o pedido
+                        if (pedido != null) {
+                            pedido.salvarPedido(); // Salva o pedido no banco
+                        }
                         break;
                     case 2:
+                        // Ver Comanda: consultar itens do pedido no banco
                         if (pedido != null) {
-                            pedido.exibirItens();
+                            pedido.exibirItens(); // Exibe os itens do pedido
                         } else {
                             System.out.println("Nenhuma comanda foi criada ainda.");
                         }
                         break;
                     case 3:
+                        // Verificar mesas disponíveis (pode ser uma leitura do banco se desejar persistir)
                         mesas.verificarDisponibilidadeMesas();
                         break;
                     case 4:
+                        // Imprimir comanda e registrar no banco
                         if (pedido != null) {
                             if (atendente == null) {
                                 System.out.println("Erro: Atendente não está definido.");
                             } else {
                                 SistemaDeImpressao.imprimirComanda(pedido, atendente, gestaoFinanceira);
+                                pedido.salvarPedido(); // Registrar que o pedido foi finalizado
                             }
                         } else {
                             System.out.println("Nenhuma comanda disponível para impressão.");
                         }
                         break;
                     case 5:
+                        // Gerar Relatório Financeiro: busca dados do banco para mostrar a receita
                         gestaoFinanceira.exibirReceitaTotal();
                         break;
                     case 6:
+                        // Sair do sistema
                         System.out.println("Encerrando o sistema...");
                         return;
                     default:
