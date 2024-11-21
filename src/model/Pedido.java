@@ -17,8 +17,7 @@ public class Pedido {
     private static int idMesa;
     private static List<ItemCardapio> itens = getItensCardapio();
     private static float valorTotal;
-    private int mesaId; // Adicione este campo na classe Pedido
-
+    private int mesaId;
 
     public Pedido(String mesa) {
         this.mesa = mesa;

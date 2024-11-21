@@ -91,7 +91,7 @@ public class Mesa {
 					String sql = "INSERT INTO mesas (id, disponivel) VALUES (?, ?) ON DUPLICATE KEY UPDATE id=id";
 					PreparedStatement statement = connection.prepareStatement(sql);
 					statement.setInt(1, idMesa);
-					statement.setBoolean(2, false); // Valor padrão para 'disponivel'
+					statement.setBoolean(2, false); // Valor padrão para 'disponível'
 					statement.executeUpdate();
 					System.out.println("Mesa verificada/criada com sucesso.");
 				} catch (SQLException e) {
