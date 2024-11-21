@@ -10,17 +10,17 @@ public class DataBaseConnection {
     private static final String USER = "root";         // Coloque seu usuário do MySQL aqui
     private static final String PASSWORD = "1234"; // Coloque sua senha do MySQL aqui
 
-    private static Connection connection = null;
+    public static Connection connection = null;
 
     // Método para conectar ao banco de dados
     public static Connection getConnection() {
-        if (connection == null) {
-            try {
+        try {
+            if (connection == null || connection.isClosed()) {
                 connection = DriverManager.getConnection(URL, USER, PASSWORD);
                 System.out.println("Conexão com o banco de dados estabelecida com sucesso!");
-            } catch (SQLException e) {
-                System.out.println("Erro ao conectar com o banco de dados: " + e.getMessage());
             }
+        } catch (SQLException e) {
+            System.out.println("Erro ao conectar ao banco de dados: " + e.getMessage());
         }
         return connection;
     }

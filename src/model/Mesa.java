@@ -7,6 +7,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+import static model.DataBaseConnection.connection;
+
 
 public class Mesa {
 	public boolean[] getMesasOcupadas;
@@ -73,6 +75,33 @@ public class Mesa {
 				System.out.println("Entrada inválida! Por favor, insira um número.");
 				scanner.nextLine();
 			}
+		}
+	}
+
+	public boolean verificarOuCriarMesa(int idMesa) {
+		try (Connection conn = DataBaseConnection.getConnection()) {
+			String sqlCheck = "SELECT COUNT(*) FROM mesas WHERE id = ?";
+			PreparedStatement stmtCheck = conn.prepareStatement(sqlCheck);
+			stmtCheck.setInt(1, idMesa);
+			ResultSet rs = stmtCheck.executeQuery();
+
+			if (rs.next() && rs.getInt(1) == 0) {
+				// A mesa não existe, então vamos criá-la
+				try {
+					String sql = "INSERT INTO mesas (id, disponivel) VALUES (?, ?) ON DUPLICATE KEY UPDATE id=id";
+					PreparedStatement statement = connection.prepareStatement(sql);
+					statement.setInt(1, idMesa);
+					statement.setBoolean(2, false); // Valor padrão para 'disponivel'
+					statement.executeUpdate();
+					System.out.println("Mesa verificada/criada com sucesso.");
+				} catch (SQLException e) {
+					System.out.println("Erro ao verificar ou criar mesa: " + e.getMessage());
+				}
+			}
+			return true;
+		} catch (SQLException e) {
+			System.out.println("Erro ao verificar ou criar mesa: " + e.getMessage());
+			return false;
 		}
 	}
 

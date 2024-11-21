@@ -1,6 +1,5 @@
 package model;
 
-import javax.swing.*;
 import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.List;
@@ -15,8 +14,9 @@ public class Pedido {
     private String mesa;
     private static int contadorId = 0;
     private int id;
+    private static int idMesa;
     private static List<ItemCardapio> itens = getItensCardapio();
-    private float valorTotal;
+    private static float valorTotal;
     private int mesaId; // Adicione este campo na classe Pedido
 
 
@@ -56,6 +56,8 @@ public class Pedido {
             System.out.println("Não há mesas disponíveis.");
             return null;
         }
+
+        int idMesa = mesaEscolhida;
 
         Pedido pedido = new Pedido("Mesa " + mesaEscolhida);
         System.out.println("Comanda criada para a Mesa " + mesaEscolhida + ".");
@@ -144,19 +146,26 @@ public class Pedido {
         System.out.println("Comanda finalizada e limpa.");
     }
 
-    public float getValorTotal() {
+    public static float getValorTotal() {
         return valorTotal;
     }
 
-    public void salvarPedido() {
+    public static void salvarPedido() {
+        // Primeiro, verifique ou crie a mesa no banco
+        Mesa mesa = new Mesa();
+        if (!mesa.verificarOuCriarMesa(idMesa)) {
+            System.out.println("Erro ao salvar pedido: não foi possível criar/verificar a mesa.");
+            return;
+        }
+
+        // Continue com o salvamento do pedido
         try (Connection conn = DataBaseConnection.getConnection()) {
             String sql = "INSERT INTO pedidos (mesa_id, valor_total) VALUES (?, ?)";
             PreparedStatement stmt = conn.prepareStatement(sql);
-            stmt.setInt(1, mesaId);
-            stmt.setFloat(2, valorTotal);
+            stmt.setInt(1, idMesa);
+            stmt.setFloat(2, getValorTotal());
             stmt.executeUpdate();
-
-            System.out.println("Pedido da Mesa " + mesaId + " registrado no banco.");
+            System.out.println("Pedido da Mesa " + idMesa + " registrado no banco.");
         } catch (SQLException e) {
             System.out.println("Erro ao salvar pedido: " + e.getMessage());
         }

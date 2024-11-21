@@ -7,6 +7,7 @@ import java.util.InputMismatchException;
 
 import static model.ItemCardapio.inicializarCardapio;
 import static model.Pedido.criarComanda;
+import static model.Pedido.salvarPedido;
 
 public class Menu {
 
@@ -41,7 +42,7 @@ public class Menu {
                         // Criar nova comanda e salvar no banco
                         pedido = criarComanda(scanner); // Aqui você cria o pedido
                         if (pedido != null) {
-                            pedido.salvarPedido(); // Salva o pedido no banco
+                            salvarPedido(); // Salva o pedido no banco
                         }
                         break;
                     case 2:
