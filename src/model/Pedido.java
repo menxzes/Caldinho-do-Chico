@@ -152,7 +152,7 @@ public class Pedido {
     public static void salvarPedido() {
         //verificar ou criar a mesa no banco
         Mesa mesa = new Mesa();
-        if (!mesa.verificarOuCriarMesa(idMesa)) {
+        if (!mesa.verificarEAtualizarDisponibilidadeMesa(idMesa)) {
             System.out.println("Erro ao salvar pedido: não foi possível criar/verificar a mesa.");
             return;
         }
