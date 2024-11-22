@@ -21,48 +21,42 @@ public class ItemCardapio {
 
     public static void inicializarCardapio() {
         // PETISCOS
-        itensCardapio.add(new ItemCardapio("Mini Coxinhas (8 unidades)", "Petiscos", 30.00f));
-        itensCardapio.add(new ItemCardapio("Torresmo", "Petiscos", 20.00f));
-        itensCardapio.add(new ItemCardapio("Batata Frita com Filé", "Petiscos", 45.00f));
-        itensCardapio.add(new ItemCardapio("Macaxeira Frita", "Petiscos", 15.00f));
-        itensCardapio.add(new ItemCardapio("Croquetes de Costela (8 unidades)", "Petiscos", 40.00f));
+        adicionarItensCategoria("Petiscos", 
+            new String[]{"Mini Coxinhas (8 unidades)", "Torresmo", "Batata Frita com Filé", "Macaxeira Frita", "Croquetes de Costela (8 unidades)"}, 
+            new float[]{30.00f, 20.00f, 45.00f, 15.00f, 40.00f});
 
         // BEBIDAS
-        itensCardapio.add(new ItemCardapio("Cerveja 600ml", "Bebidas", 17.00f));
-        itensCardapio.add(new ItemCardapio("Cachaças (Dose)", "Bebidas", 10.00f));
-        itensCardapio.add(new ItemCardapio("Sucos (Copo)", "Bebidas", 10.00f));
-        itensCardapio.add(new ItemCardapio("Refrigerantes", "Bebidas", 14.00f));
-        itensCardapio.add(new ItemCardapio("Água", "Bebidas", 6.00f));
+        adicionarItensCategoria("Bebidas", 
+            new String[]{"Cerveja 600ml", "Cachaças (Dose)", "Sucos (Copo)", "Refrigerantes", "Água"}, 
+            new float[]{17.00f, 10.00f, 10.00f, 14.00f, 6.00f});
 
         // DRINKS
-        itensCardapio.add(new ItemCardapio("Caipirinha", "Drinks", 15.00f));
-        itensCardapio.add(new ItemCardapio("Gin Tônica", "Drinks", 20.00f));
-        itensCardapio.add(new ItemCardapio("Mojito", "Drinks", 18.00f));
-        itensCardapio.add(new ItemCardapio("Margarita", "Drinks", 25.00f));
-        itensCardapio.add(new ItemCardapio("Caipiroska", "Drinks", 17.00f));
+        adicionarItensCategoria("Drinks", 
+            new String[]{"Caipirinha", "Gin Tônica", "Mojito", "Margarita", "Caipiroska"}, 
+            new float[]{15.00f, 20.00f, 18.00f, 25.00f, 17.00f});
 
         // CALDINHOS
-        itensCardapio.add(new ItemCardapio("Caldinho de Feijão", "Caldinhos", 13.00f));
-        itensCardapio.add(new ItemCardapio("Caldinho de Camarão", "Caldinhos", 17.00f));
-        itensCardapio.add(new ItemCardapio("Caldinho de Marisco", "Caldinhos", 15.00f));
-        itensCardapio.add(new ItemCardapio("Caldinho de Peixe", "Caldinhos", 13.00f));
-        itensCardapio.add(new ItemCardapio("Caldinho de Caldeirada", "Caldinhos", 20.00f));
+        adicionarItensCategoria("Caldinhos", 
+            new String[]{"Caldinho de Feijão", "Caldinho de Camarão", "Caldinho de Marisco", "Caldinho de Peixe", "Caldinho de Caldeirada"}, 
+            new float[]{13.00f, 17.00f, 15.00f, 13.00f, 20.00f});
 
         // SOBREMESAS
-        itensCardapio.add(new ItemCardapio("Brownie com Sorvete", "Sobremesas", 18.00f));
-        itensCardapio.add(new ItemCardapio("Pudim", "Sobremesas", 13.00f));
-        itensCardapio.add(new ItemCardapio("Pavê", "Sobremesas", 16.00f));
-        itensCardapio.add(new ItemCardapio("Mousses", "Sobremesas", 13.00f));
-        itensCardapio.add(new ItemCardapio("Torta de Limão (Fatia)", "Sobremesas", 15.00f));
+        adicionarItensCategoria("Sobremesas", 
+            new String[]{"Brownie com Sorvete", "Pudim", "Pavê", "Mousses", "Torta de Limão (Fatia)"}, 
+            new float[]{18.00f, 13.00f, 16.00f, 13.00f, 15.00f});
 
         // PRATOS PRINCIPAIS
-        itensCardapio.add(new ItemCardapio("Feijoada", "Pratos Principais", 60.00f));
-        itensCardapio.add(new ItemCardapio("Moqueca de Peixe", "Pratos Principais", 60.00f));
-        itensCardapio.add(new ItemCardapio("Lasanha", "Pratos Principais", 40.00f));
-        itensCardapio.add(new ItemCardapio("Carne de Sol de Bode", "Pratos Principais", 55.00f));
-        itensCardapio.add(new ItemCardapio("Filé à Parmegiana", "Pratos Principais", 60.00f));
+        adicionarItensCategoria("Pratos Principais", 
+            new String[]{"Feijoada", "Moqueca de Peixe", "Lasanha", "Carne de Sol de Bode", "Filé à Parmegiana"}, 
+            new float[]{60.00f, 60.00f, 40.00f, 55.00f, 60.00f});
     }
 
+    // Método auxiliar para adicionar itens ao cardápio por categoria
+    private static void adicionarItensCategoria(String categoria, String[] nomes, float[] precos) {
+        for (int i = 0; i < nomes.length; i++) {
+            itensCardapio.add(new ItemCardapio(nomes[i], categoria, precos[i]));
+        }
+    }
     public String getNome() {
         return nome;
     }
