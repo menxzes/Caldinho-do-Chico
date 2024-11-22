@@ -7,12 +7,11 @@ import java.sql.SQLException;
 public class DataBaseConnection {
 
     private static final String URL = "jdbc:mysql://localhost:3306/caldinho_do_chico";
-    private static final String USER = "root";         // Coloque seu usuário do MySQL aqui
-    private static final String PASSWORD = "1234"; // Coloque sua senha do MySQL aqui
-
+    private static final String USER = "root";
+    private static final String PASSWORD = "1234";
     public static Connection connection = null;
 
-    // Método para conectar ao banco de dados
+    //conectar ao banco
     public static Connection getConnection() {
         try {
             if (connection == null || connection.isClosed()) {
@@ -25,7 +24,7 @@ public class DataBaseConnection {
         return connection;
     }
 
-    // Método para fechar a conexão (opcional)
+    //fechar a conexão
     public static void closeConnection() {
         if (connection != null) {
             try {

@@ -150,14 +150,14 @@ public class Pedido {
     }
 
     public static void salvarPedido() {
-        // Primeiro, verifique ou crie a mesa no banco
+        //verificar ou criar a mesa no banco
         Mesa mesa = new Mesa();
         if (!mesa.verificarOuCriarMesa(idMesa)) {
             System.out.println("Erro ao salvar pedido: não foi possível criar/verificar a mesa.");
             return;
         }
 
-        // Continue com o salvamento do pedido
+        //salvamento do pedido
         try (Connection conn = DataBaseConnection.getConnection()) {
             String sql = "INSERT INTO pedidos (mesa_id, valor_total) VALUES (?, ?)";
             PreparedStatement stmt = conn.prepareStatement(sql);

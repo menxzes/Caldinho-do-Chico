@@ -16,11 +16,6 @@ public class Mesa {
 	private boolean disponivel;
 	private boolean[] mesasOcupadas = new boolean[10];
 
-	public Mesa(int idMesa, boolean disponivel) {
-		this.idMesa = idMesa;
-		this.disponivel = disponivel;
-	}
-
 	public Mesa() {;
 	}
 
@@ -136,17 +131,5 @@ public class Mesa {
 		} catch (SQLException e) {
 			System.out.println("Erro ao atualizar mesa: " + e.getMessage());
 		}
-	}
-
-	public int getIdMesa() {
-		return idMesa;
-	}
-
-	public boolean isDisponivel() {
-		return disponivel;
-	}
-
-	public void setDisponivel() {
-		this.disponivel = true;
 	}
 }

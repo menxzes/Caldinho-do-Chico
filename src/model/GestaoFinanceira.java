@@ -18,10 +18,6 @@ public class GestaoFinanceira {
         this.pedidos.add(pedido);
     }
 
-    public float getReceitaTotal() {
-        return receitaTotal;
-    }
-
     public void exibirReceitaTotal() {
         System.out.println("Receita Total: R$" + receitaTotal + "\n");
         System.out.println("Pedidos registrados:");

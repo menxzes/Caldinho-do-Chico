@@ -40,15 +40,15 @@ public class Menu {
                 switch (escolha) {
                     case 1:
                         // Criar nova comanda e salvar no banco
-                        pedido = criarComanda(scanner); // Aqui você cria o pedido
+                        pedido = criarComanda(scanner);
                         if (pedido != null) {
-                            salvarPedido(); // Salva o pedido no banco
+                            salvarPedido();
                         }
                         break;
                     case 2:
                         // Ver Comanda: consultar itens do pedido no banco
                         if (pedido != null) {
-                            pedido.exibirItens(); // Exibe os itens do pedido
+                            pedido.exibirItens();
                         } else {
                             System.out.println("Nenhuma comanda foi criada ainda.");
                         }
@@ -64,7 +64,7 @@ public class Menu {
                                 System.out.println("Erro: Atendente não está definido.");
                             } else {
                                 SistemaDeImpressao.imprimirComanda(pedido, atendente, gestaoFinanceira);
-                                pedido.salvarPedido(); // Registrar que o pedido foi finalizado
+                                pedido.salvarPedido();
                             }
                         } else {
                             System.out.println("Nenhuma comanda disponível para impressão.");
