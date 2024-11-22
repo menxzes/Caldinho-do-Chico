@@ -144,15 +144,6 @@ public class Pedido {
 
     public static void salvarPedido() {
 
-        /*
-        Mesa mesa = new Mesa();
-
-        if (!mesa.verificarEAtualizarDisponibilidadeMesa(idMesa)) {
-            System.out.println("Erro ao salvar pedido: não foi possível criar/verificar a mesa.");
-            return;
-        }
-         */
-
         //salvamento do pedido
         try (Connection conn = DataBaseConnection.getConnection()) {
             String sql = "INSERT INTO pedidos (mesa_id, valor_total) VALUES (?, ?)";
