@@ -138,19 +138,19 @@ public class Mesa {
 		String updateQuery = "UPDATE mesas SET disponivel = false WHERE id = ?";
 
 		try (Connection conn = DataBaseConnection.getConnection();
-			 PreparedStatement selectStatement = connection.prepareStatement(selectQuery);
-			 PreparedStatement updateStatement = connection.prepareStatement(updateQuery)) {
+			 PreparedStatement selectStatement = conn.prepareStatement(selectQuery);
+			 PreparedStatement updateStatement = conn.prepareStatement(updateQuery)) {
 
 			selectStatement.setInt(1, mesaId);
 
 			try (ResultSet resultSet = selectStatement.executeQuery()) {
 				if (resultSet.next()) {
-					// Pegar o valor da coluna "disponivel"
+					// pegar o valor da coluna "disponivel"
 					boolean disponivel = resultSet.getBoolean("disponivel");
 
 					if (disponivel) {
 						System.out.println("A mesa " + mesaId + " está marcada como disponível. Atualizando para atendida...");
-						// Atualizar a disponibilidade para false
+						// atualizar a disponibilidade para false
 						updateStatement.setInt(1, mesaId);
 						int rowsAffected = updateStatement.executeUpdate();
 

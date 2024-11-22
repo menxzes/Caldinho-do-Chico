@@ -139,19 +139,14 @@ public class Pedido {
         return itensFiltrados;
     }
 
-    public void limparItens() {
-        this.itens = null;
-        this.valorTotal = 0;
-        System.out.println("Comanda finalizada e limpa.");
-    }
-
     public static float getValorTotal() {
         return valorTotal;
     }
 
     public static void salvarPedido() {
-        //verificar ou criar a mesa no banco
+
         Mesa mesa = new Mesa();
+
         if (!mesa.verificarEAtualizarDisponibilidadeMesa(idMesa)) {
             System.out.println("Erro ao salvar pedido: não foi possível criar/verificar a mesa.");
             return;
