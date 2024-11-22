@@ -54,7 +54,7 @@ public class Menu {
                         }
                         break;
                     case 3:
-                        // Verificar mesas disponíveis (pode ser uma leitura do banco se desejar persistir)
+                        // Verificar mesas disponíveis
                         mesas.verificarDisponibilidadeMesas();
                         break;
                     case 4:

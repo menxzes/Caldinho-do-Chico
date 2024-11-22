@@ -47,16 +47,15 @@ public class Pedido {
     }
 
     public static Pedido criarComanda(Scanner scanner) {
-        Mesa mesas = new Mesa();
+        Mesa mesa = new Mesa();
 
-        int mesaEscolhida = mesas.selecionarMesa(scanner);
+        System.out.print("Digite o número da mesa escolhida: ");
+        int mesaEscolhida = scanner.nextInt();
+        scanner.nextLine();
 
-        if (mesaEscolhida == -1) {
-            System.out.println("Não há mesas disponíveis.");
+        if(!mesa.verificarEAtualizarDisponibilidadeMesa(mesaEscolhida)) {
             return null;
-        }
-
-        int idMesa = mesaEscolhida;
+        };
 
         Pedido pedido = new Pedido("Mesa " + mesaEscolhida);
         System.out.println("Comanda criada para a Mesa " + mesaEscolhida + ".");
