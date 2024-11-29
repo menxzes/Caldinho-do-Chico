@@ -19,6 +19,7 @@ public class Pedido {
     public Pedido(int mesaId) {
         this.mesaId = mesaId;
         valorTotal = 0;
+
     }
 
     public void adicionarItem(ItemCardapio item) {
@@ -104,6 +105,7 @@ public class Pedido {
                 System.out.println("Ocorreu um erro inesperado: " + e.getMessage());
             }
         }
+        salvarPedidoNoBanco(pedido);
         verificarEAtualizarDisponibilidadeMesa(mesaEscolhida, pedido);
         return pedido;
     }
@@ -129,7 +131,30 @@ public class Pedido {
         return itensFiltrados;
     }
 
-    public static float getValorTotal() {
+    public static void salvarPedidoNoBanco(Pedido pedido) {
+        String query = "INSERT INTO pedidos (mesa_id, valor_total) VALUES (?, ?)";
+
+        try (Connection conn = DataBaseConnection.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(query)) {
+
+            stmt.setInt(1, pedido.mesaId); // Set mesa_id
+            stmt.setDouble(2, pedido.valorTotal); // Set valor_total
+
+            int rowsAffected = stmt.executeUpdate();
+
+            if (rowsAffected > 0) {
+                System.out.println("Pedido salvo no banco de dados com sucesso.");
+            } else {
+                System.out.println("Erro ao salvar o pedido no banco de dados.");
+            }
+
+        } catch (SQLException e) {
+            System.out.println("Erro ao salvar o pedido: " + e.getMessage());
+            e.printStackTrace();
+        }
+    }
+
+    public float getValorTotal() {
         return valorTotal;
     }
 
@@ -185,11 +210,4 @@ public class Pedido {
             return false;
         }
     }
-
-    /*
-    @Override
-    public String toString() {
-        String result = "Pedido" + id + " - Valor total: R$" + valorTotal;
-        return result;
-    } */
 }
