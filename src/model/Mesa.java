@@ -84,14 +84,13 @@ public class Mesa {
 			selectStatement.setInt(1, mesaId);
 
 			try (ResultSet resultSet = selectStatement.executeQuery()) {
-				if (!resultSet.next()) {
-					// pegar o valor da coluna "disponivel"
+				if (resultSet.next()) {
+
 					boolean disponivel = resultSet.getBoolean("disponivel");
 
 					if (disponivel) {
 						System.out.println("A mesa " + mesaId + " está marcada como disponível. Atualizando para atendida...");
 						// atualizar a disponibilidade para false
-						updateStatement.setInt(1, mesaId);
 						updateStatement.setInt(1, 0);
 						updateStatement.setInt(2, mesaId);
 						int rowsAffected = updateStatement.executeUpdate();
