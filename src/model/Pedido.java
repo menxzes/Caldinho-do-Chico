@@ -14,15 +14,17 @@ import static model.Mesa.verificarEAtualizarDisponibilidadeMesa;
 public class Pedido {
     private int mesaId;
     private static List<ItemCardapio> itens = getItensCardapio();
+    private List<ItemCardapio> itensPedido;
     private float valorTotal;
 
-    public Pedido(int mesaId) {
+    public Pedido(int mesaId, List<ItemCardapio> itensPedido) {
         this.mesaId = mesaId;
+        this.itensPedido = itensPedido;
         valorTotal = 0;
     }
 
     public void adicionarItem(ItemCardapio item) {
-        itens.add(item);
+        itensPedido.add(item);
         for (ItemCardapio i : itens) {
             valorTotal += item.getPreco();
         }
@@ -48,7 +50,7 @@ public class Pedido {
         int mesaEscolhida = scanner.nextInt();
         scanner.nextLine();
 
-        Pedido pedido = new Pedido(mesaEscolhida);
+        Pedido pedido = new Pedido(mesaEscolhida, );
         System.out.println("Comanda criada para a Mesa " + mesaEscolhida + ".");
 
         while (true) {
@@ -182,7 +184,6 @@ public class Pedido {
             return false;
         }
     }
-
 
     public static boolean atualizarValorTotal(int pedidoId, float novoValorTotal) {
         String updateQuery = "UPDATE pedidos SET valor_total = ? WHERE id = ?";
