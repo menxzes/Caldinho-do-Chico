@@ -17,7 +17,7 @@ public class Pedido {
     private static int idMesa;
     private static List<ItemCardapio> itens = getItensCardapio();
     private static float valorTotal;
-    private int mesaId;
+    private static int mesaId;
 
     public Pedido(String mesa) {
         this.mesa = mesa;
@@ -143,6 +143,13 @@ public class Pedido {
     }
 
     public static void salvarPedido() {
+
+        Mesa mesa = new Mesa();
+
+        if (!mesa.verificarEAtualizarDisponibilidadeMesa(idMesa)) {
+            System.out.println("Erro ao salvar pedido: não foi possível criar/verificar a mesa.");
+            return;
+        }
 
         //salvamento do pedido
         try (Connection conn = DataBaseConnection.getConnection()) {
