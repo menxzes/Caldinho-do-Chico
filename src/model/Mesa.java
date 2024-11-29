@@ -73,32 +73,6 @@ public class Mesa {
 		}
 	}
 
-	private void marcarMesaComoOcupada(int idMesa) {
-		try (Connection conn = DataBaseConnection.getConnection()) {
-			String sql = "UPDATE mesas SET disponivel = false WHERE id = ?";
-			PreparedStatement stmt = conn.prepareStatement(sql);
-			stmt.setInt(1, idMesa);
-			stmt.executeUpdate();
-			mesasOcupadas[idMesa - 1] = true; // Atualiza o status local da mesa
-			System.out.println("Mesa " + idMesa + " marcada como ocupada.");
-		} catch (SQLException e) {
-			System.out.println("Erro ao marcar mesa como ocupada: " + e.getMessage());
-		}
-	}
-
-	public void liberarMesa() {
-		try (Connection conn = DataBaseConnection.getConnection()) {
-			String sql = "UPDATE mesas SET disponivel = true WHERE id = ?";
-			PreparedStatement stmt = conn.prepareStatement(sql);
-			stmt.setInt(1, idMesa);
-			stmt.executeUpdate();
-			mesasOcupadas[idMesa - 1] = false; // Atualiza o status local da mesa
-			System.out.println("Mesa " + idMesa + " liberada.");
-		} catch (SQLException e) {
-			System.out.println("Erro ao liberar mesa: " + e.getMessage());
-		}
-	}
-
 	public static boolean verificarEAtualizarDisponibilidadeMesa(int mesaId, Pedido pedido) {
 		String selectQuery = "SELECT disponivel FROM mesas WHERE id = ?";
 		String updateQuery = "UPDATE mesas SET disponivel = false WHERE id = ?";
@@ -118,6 +92,8 @@ public class Mesa {
 						System.out.println("A mesa " + mesaId + " está marcada como disponível. Atualizando para atendida...");
 						// atualizar a disponibilidade para false
 						updateStatement.setInt(1, mesaId);
+						updateStatement.setInt(1, 0);
+						updateStatement.setInt(2, mesaId);
 						int rowsAffected = updateStatement.executeUpdate();
 
 						if (rowsAffected > 0) {
@@ -155,25 +131,5 @@ public class Mesa {
 			e.printStackTrace();
 			return false;
 		}
-	}
-
-	public boolean verificarMesa(int idMesa) {
-		try (Connection conn = DataBaseConnection.getConnection()) {
-			String sqlCheck = "SELECT disponivel FROM mesas WHERE id = ?";
-			PreparedStatement stmtCheck = conn.prepareStatement(sqlCheck);
-			stmtCheck.setInt(1, idMesa);
-			ResultSet rs = stmtCheck.executeQuery();
-
-			if (rs.next()) {
-				this.disponivel = rs.getBoolean("disponivel");
-				mesasOcupadas[idMesa - 1] = !this.disponivel; // Atualiza o array local com o status
-				return true; // A mesa existe
-			} else {
-				System.out.println("Mesa " + idMesa + " não encontrada no banco de dados.");
-			}
-		} catch (SQLException e) {
-			System.out.println("Erro ao verificar mesa: " + e.getMessage());
-		}
-		return false; // A mesa não existe
 	}
 }
