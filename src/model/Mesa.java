@@ -73,63 +73,29 @@ public class Mesa {
 		}
 	}
 
-	public boolean verificarOuCriarMesa(int idMesa) {
+	private void marcarMesaComoOcupada(int idMesa) {
 		try (Connection conn = DataBaseConnection.getConnection()) {
-			String sqlCheck = "SELECT COUNT(*) FROM mesas WHERE id = ?";
-			PreparedStatement stmtCheck = conn.prepareStatement(sqlCheck);
-			stmtCheck.setInt(1, idMesa);
-			ResultSet rs = stmtCheck.executeQuery();
-
-			if (rs.next() && rs.getInt(1) == 0) {
-				// A mesa não existe, então vamos criá-la
-				try {
-					String sql = "INSERT INTO mesas (id, disponivel) VALUES (?, ?) ON DUPLICATE KEY UPDATE id=id";
-					PreparedStatement statement = connection.prepareStatement(sql);
-					statement.setInt(1, idMesa);
-					statement.setBoolean(2, false); // Valor padrão para 'disponível'
-					statement.executeUpdate();
-					System.out.println("Mesa verificada/criada com sucesso.");
-				} catch (SQLException e) {
-					System.out.println("Erro ao verificar ou criar mesa: " + e.getMessage());
-				}
-			}
-			return true;
-		} catch (SQLException e) {
-			System.out.println("Erro ao verificar ou criar mesa: " + e.getMessage());
-			return false;
-		}
-	}
-
-	public void salvarMesa() {
-		try (Connection conn = DataBaseConnection.getConnection()) {
-			String sql = "INSERT INTO mesas (disponivel) VALUES (?)";
-			PreparedStatement stmt = conn.prepareStatement(sql, PreparedStatement.RETURN_GENERATED_KEYS);
-			stmt.setBoolean(1, disponivel);
-			stmt.executeUpdate();
-
-			ResultSet rs = stmt.getGeneratedKeys();
-			if (rs.next()) {
-				this.idMesa = rs.getInt(1);
-			}
-
-			System.out.println("Mesa " + idMesa + " registrada no banco.");
-		} catch (SQLException e) {
-			System.out.println("Erro ao salvar mesa: " + e.getMessage());
-		}
-	}
-
-	public void atualizarDisponibilidade(boolean novoStatus) {
-		try (Connection conn = DataBaseConnection.getConnection()) {
-			String sql = "UPDATE mesas SET disponivel = ? WHERE id = ?";
+			String sql = "UPDATE mesas SET disponivel = false WHERE id = ?";
 			PreparedStatement stmt = conn.prepareStatement(sql);
-			stmt.setBoolean(1, novoStatus);
-			stmt.setInt(2, idMesa);
+			stmt.setInt(1, idMesa);
 			stmt.executeUpdate();
-			this.disponivel = novoStatus;
-
-			System.out.println("Disponibilidade da mesa " + idMesa + " atualizada.");
+			mesasOcupadas[idMesa - 1] = true; // Atualiza o status local da mesa
+			System.out.println("Mesa " + idMesa + " marcada como ocupada.");
 		} catch (SQLException e) {
-			System.out.println("Erro ao atualizar mesa: " + e.getMessage());
+			System.out.println("Erro ao marcar mesa como ocupada: " + e.getMessage());
+		}
+	}
+
+	public void liberarMesa() {
+		try (Connection conn = DataBaseConnection.getConnection()) {
+			String sql = "UPDATE mesas SET disponivel = true WHERE id = ?";
+			PreparedStatement stmt = conn.prepareStatement(sql);
+			stmt.setInt(1, idMesa);
+			stmt.executeUpdate();
+			mesasOcupadas[idMesa - 1] = false; // Atualiza o status local da mesa
+			System.out.println("Mesa " + idMesa + " liberada.");
+		} catch (SQLException e) {
+			System.out.println("Erro ao liberar mesa: " + e.getMessage());
 		}
 	}
 
@@ -188,5 +154,25 @@ public class Mesa {
 			e.printStackTrace();
 			return false;
 		}
+	}
+
+	public boolean verificarMesa(int idMesa) {
+		try (Connection conn = DataBaseConnection.getConnection()) {
+			String sqlCheck = "SELECT disponivel FROM mesas WHERE id = ?";
+			PreparedStatement stmtCheck = conn.prepareStatement(sqlCheck);
+			stmtCheck.setInt(1, idMesa);
+			ResultSet rs = stmtCheck.executeQuery();
+
+			if (rs.next()) {
+				this.disponivel = rs.getBoolean("disponivel");
+				mesasOcupadas[idMesa - 1] = !this.disponivel; // Atualiza o array local com o status
+				return true; // A mesa existe
+			} else {
+				System.out.println("Mesa " + idMesa + " não encontrada no banco de dados.");
+			}
+		} catch (SQLException e) {
+			System.out.println("Erro ao verificar mesa: " + e.getMessage());
+		}
+		return false; // A mesa não existe
 	}
 }
