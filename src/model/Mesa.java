@@ -75,7 +75,7 @@ public class Mesa {
 
 	public static boolean verificarEAtualizarDisponibilidadeMesa(int mesaId, Pedido pedido) {
 		String selectQuery = "SELECT disponivel FROM mesas WHERE id = ?";
-		String updateQuery = "UPDATE mesas SET disponivel = false WHERE id = ?";
+		String updateQuery = "UPDATE mesas SET disponivel = ? WHERE id = ?";
 
 		try (Connection conn = DataBaseConnection.getConnection();
 			 PreparedStatement selectStatement = conn.prepareStatement(selectQuery);
