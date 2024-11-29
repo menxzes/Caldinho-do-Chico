@@ -17,9 +17,8 @@ public class Pedido {
     private List<ItemCardapio> itensPedido = new ArrayList<>();
     private float valorTotal;
 
-    public Pedido(int mesaId, List<ItemCardapio> itensPedido) {
+    public Pedido(int mesaId) {
         this.mesaId = mesaId;
-        this.itensPedido = itensPedido;
         valorTotal = 0;
     }
 
