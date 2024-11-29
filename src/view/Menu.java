@@ -25,7 +25,7 @@ public class Menu {
 
         while (true) {
             try {
-                System.out.println("\n\033[1;33m=== MENU PRINCIPAL ===");
+                System.out.println("\n\033[1;33m=== BEM-VINDO AO CALDINHO DO CHICO! ===");
                 System.out.println("1. Criar Comanda");
                 System.out.println("2. Ver Comanda");
                 System.out.println("3. Verificar Disponibilidade de Mesas");
