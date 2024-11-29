@@ -25,14 +25,14 @@ public class Menu {
 
         while (true) {
             try {
-                System.out.println("\n--- MENU PRINCIPAL ---");
+                System.out.println("\n\033[1;33m=== BEM-VINDO AO CALDINHO DO CHICO! ===");
                 System.out.println("1. Criar Comanda");
                 System.out.println("2. Ver Comanda");
                 System.out.println("3. Verificar Disponibilidade de Mesas");
                 System.out.println("4. Imprimir Comanda");
                 System.out.println("5. Gerar Relatório Financeiro");
-                System.out.println("6. Sair");
-                System.out.print("Escolha uma opção: ");
+                System.out.println("6. Sair\033[0m");
+                System.out.print("\033[1mEscolha uma opção: \033[0m");
 
                 int escolha = scanner.nextInt();
                 scanner.nextLine();
@@ -50,7 +50,7 @@ public class Menu {
                         if (pedido != null) {
                             pedido.exibirItens();
                         } else {
-                            System.out.println("Nenhuma comanda foi criada ainda.");
+                            System.out.println("\033[31mNenhuma comanda foi criada ainda.\033[0m");
                         }
                         break;
                     case 3:
@@ -61,13 +61,13 @@ public class Menu {
                         // Imprimir comanda e registrar no banco
                         if (pedido != null) {
                             if (atendente == null) {
-                                System.out.println("Erro: Atendente não está definido.");
+                                System.out.println("\033[31mErro: Atendente não está definido.\033[0m");
                             } else {
                                 SistemaDeImpressao.imprimirComanda(pedido, atendente, gestaoFinanceira);
                                 pedido.salvarPedido();
                             }
                         } else {
-                            System.out.println("Nenhuma comanda disponível para impressão.");
+                            System.out.println("\033[31mNenhuma comanda disponível para impressão.\033[0m");
                         }
                         break;
                     case 5:
@@ -76,16 +76,24 @@ public class Menu {
                         break;
                     case 6:
                         // Sair do sistema
-                        System.out.println("Encerrando o sistema...");
+                    	String saindo = "Encerrando o sistema...";
+                    	for (char caractere : saindo.toCharArray()) {
+                            System.out.print(caractere);
+                            try {
+                                Thread.sleep(70); // Animação bonitinha pra sair do sistema
+                            } catch (InterruptedException e) {
+                                Thread.currentThread().interrupt(); 
+                            }
+                        }
                         return;
                     default:
-                        System.out.println("Opção inválida! Por favor, escolha uma opção entre 1 e 6.");
+                        System.out.println("\033[31mOpção inválida!\033[0m Por favor, escolha uma opção entre 1 e 6.");
                 }
             } catch (InputMismatchException e) {
-                System.out.println("Entrada inválida! Por favor, insira um número.");
+                System.out.println("\033[31mEntrada inválida! \033[0mPor favor, insira um número.");
                 scanner.nextLine();
             } catch (Exception e) {
-                System.out.println("Ocorreu um erro inesperado: " + e.getMessage());
+                System.out.println("\033[31mOcorreu um erro inesperado: \033[0m" + e.getMessage());
             }
         }
     }
