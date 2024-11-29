@@ -12,29 +12,24 @@ import static model.ItemCardapio.getItensCardapio;
 import static model.Mesa.verificarEAtualizarDisponibilidadeMesa;
 
 public class Pedido {
-    private String mesa;
-    private static int contadorId = 0;
-    private int id;
-    private static int idMesa;
+    private int mesaId;
     private static List<ItemCardapio> itens = getItensCardapio();
     private static float valorTotal;
-    private static int mesaId;
 
-    public Pedido(String mesa) {
-        this.mesa = mesa;
-        this.id = ++contadorId;;
-        this.valorTotal = 0;
-    }
-
-    public Pedido() {
+    public Pedido(int mesaId) {
+        this.mesaId = mesaId;
+        valorTotal = 0;
     }
 
     public void adicionarItem(ItemCardapio item) {
         itens.add(item);
-        valorTotal += item.getPreco();
+        for (ItemCardapio i : itens) {
+            valorTotal += item.getPreco();
+        }
+        atualizarValorTotal(mesaId, valorTotal);
         System.out.println(item.getNome() + " adicionado à comanda. Total: R$" + valorTotal);
     }
-
+    
     public void exibirItens() {
         if (itens == null || itens.isEmpty()) {
             System.out.println("Nenhum item na comanda.");
@@ -53,7 +48,7 @@ public class Pedido {
         int mesaEscolhida = scanner.nextInt();
         scanner.nextLine();
 
-        Pedido pedido = new Pedido("Mesa " + mesaEscolhida);
+        Pedido pedido = new Pedido(mesaEscolhida);
         System.out.println("Comanda criada para a Mesa " + mesaEscolhida + ".");
 
         while (true) {
@@ -138,38 +133,63 @@ public class Pedido {
         return valorTotal;
     }
 
-    public static void salvarPedido() {
-        //salvamento do pedido
-        try (Connection conn = DataBaseConnection.getConnection()) {
-            String sql = "INSERT INTO pedidos (mesa_id, valor_total) VALUES (?, ?)";
-            PreparedStatement stmt = conn.prepareStatement(sql);
-            stmt.setInt(1, idMesa);
-            stmt.setFloat(2, getValorTotal());
-            stmt.executeUpdate();
-            System.out.println("Pedido da Mesa " + idMesa + " registrado no banco.");
+    public static boolean salvarPedido(int mesaId, double valorTotal) {
+        String insertQuery = "INSERT INTO pedidos (mesa_id, valor_total) VALUES (?, ?)";
+
+        try (Connection conn = DataBaseConnection.getConnection();
+             PreparedStatement insertStatement = conn.prepareStatement(insertQuery)) {
+
+            insertStatement.setInt(1, mesaId);
+            insertStatement.setDouble(2, valorTotal);
+
+            int rowsAffected = insertStatement.executeUpdate();
+
+            if (rowsAffected > 0) {
+                System.out.println("Pedido para a mesa " + mesaId + " foi salvo com sucesso!");
+                return true;
+            } else {
+                System.out.println("Falha ao salvar o pedido.");
+                return false;
+            }
+
         } catch (SQLException e) {
-            System.out.println("Erro ao salvar pedido: " + e.getMessage());
+            System.out.println("Erro ao salvar o pedido: " + e.getMessage());
+            e.printStackTrace();
+            return false;
         }
     }
 
-    public void atualizarValorTotal(float novoValor) {
-        try (Connection conn = DataBaseConnection.getConnection()) {
-            String sql = "UPDATE pedidos SET valor_total = ? WHERE id = ?";
-            PreparedStatement stmt = conn.prepareStatement(sql);
-            stmt.setFloat(1, novoValor);
-            stmt.setInt(2, id);
-            stmt.executeUpdate();
-            this.valorTotal = novoValor;
 
-            System.out.println("Valor total do pedido atualizado.");
+    public static boolean atualizarValorTotal(int pedidoId, float novoValorTotal) {
+        String updateQuery = "UPDATE pedidos SET valor_total = ? WHERE id = ?";
+
+        try (Connection conn = DataBaseConnection.getConnection();
+             PreparedStatement updateStatement = conn.prepareStatement(updateQuery)) {
+
+            updateStatement.setDouble(1, novoValorTotal);
+            updateStatement.setInt(2, pedidoId);
+
+            int rowsAffected = updateStatement.executeUpdate();
+
+            if (rowsAffected > 0) {
+                System.out.println("Valor total do pedido " + pedidoId + " atualizado com sucesso!");
+                return true;
+            } else {
+                System.out.println("Falha ao atualizar o valor total do pedido.");
+                return false;
+            }
+
         } catch (SQLException e) {
-            System.out.println("Erro ao atualizar o pedido: " + e.getMessage());
+            System.out.println("Erro ao atualizar o valor total do pedido: " + e.getMessage());
+            e.printStackTrace();
+            return false;
         }
     }
 
+    /*
     @Override
     public String toString() {
         String result = "Pedido" + id + " - Valor total: R$" + valorTotal;
         return result;
-    }
+    } */
 }

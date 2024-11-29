@@ -6,6 +6,7 @@ import java.util.Scanner;
 import java.util.InputMismatchException;
 
 import static model.ItemCardapio.inicializarCardapio;
+import static model.Mesa.verificarDisponibilidadeMesas;
 import static model.Mesa.verificarEAtualizarDisponibilidadeMesa;
 import static model.Pedido.criarComanda;
 import static model.Pedido.salvarPedido;
@@ -13,7 +14,6 @@ import static model.Pedido.salvarPedido;
 public class Menu {
 
     private Atendente atendente = new Atendente("Guilherme", "A1");
-    private Mesa mesas = new Mesa();
 
     public Menu() {
         inicializarCardapio();
@@ -53,7 +53,7 @@ public class Menu {
                         break;
                     case 3:
                         // Verificar mesas disponíveis
-                        mesas.verificarDisponibilidadeMesas();
+                        verificarDisponibilidadeMesas();
                         break;
                     case 4:
                         // Imprimir comanda e registrar no banco

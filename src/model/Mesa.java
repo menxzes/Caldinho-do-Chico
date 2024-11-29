@@ -5,10 +5,6 @@ import java.util.Scanner;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.SQLException;
-
-import static model.DataBaseConnection.connection;
-
 
 public class Mesa {
 	public boolean[] getMesasOcupadas;
