@@ -14,7 +14,7 @@ import static model.Mesa.verificarEAtualizarDisponibilidadeMesa;
 public class Pedido {
     private int mesaId;
     private static List<ItemCardapio> itens = getItensCardapio();
-    private List<ItemCardapio> itensPedido;
+    private List<ItemCardapio> itensPedido = new ArrayList<>();
     private float valorTotal;
 
     public Pedido(int mesaId, List<ItemCardapio> itensPedido) {
@@ -50,7 +50,7 @@ public class Pedido {
         int mesaEscolhida = scanner.nextInt();
         scanner.nextLine();
 
-        Pedido pedido = new Pedido(mesaEscolhida, );
+        Pedido pedido = new Pedido(mesaEscolhida);
         System.out.println("Comanda criada para a Mesa " + mesaEscolhida + ".");
 
         while (true) {
