@@ -19,8 +19,8 @@ public class GestaoFinanceira {
     }
 
     public void exibirReceitaTotal() {
-        System.out.println("Receita Total: R$" + receitaTotal + "\n");
-        System.out.println("Pedidos registrados:");
+        System.out.println("\033[1m> Receita Total: R$" + receitaTotal + "\n");
+        System.out.println("Pedidos registrados:\033[0m");
         for (Pedido pedido : pedidos) {
             System.out.println(pedido);
         }
