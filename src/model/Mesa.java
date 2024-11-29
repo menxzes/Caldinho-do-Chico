@@ -110,7 +110,7 @@ public class Mesa {
 			selectStatement.setInt(1, mesaId);
 
 			try (ResultSet resultSet = selectStatement.executeQuery()) {
-				if (resultSet.next()) {
+				if (!resultSet.next()) {
 					// pegar o valor da coluna "disponivel"
 					boolean disponivel = resultSet.getBoolean("disponivel");
 
