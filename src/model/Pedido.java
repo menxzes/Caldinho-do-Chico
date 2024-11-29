@@ -14,12 +14,11 @@ import static model.Mesa.verificarEAtualizarDisponibilidadeMesa;
 public class Pedido {
     private int mesaId;
     private static List<ItemCardapio> itens = getItensCardapio();
-    private static float valorTotal;
+    private float valorTotal;
 
     public Pedido(int mesaId) {
         this.mesaId = mesaId;
         valorTotal = 0;
-
     }
 
     public void adicionarItem(ItemCardapio item) {
@@ -137,8 +136,8 @@ public class Pedido {
         try (Connection conn = DataBaseConnection.getConnection();
              PreparedStatement stmt = conn.prepareStatement(query)) {
 
-            stmt.setInt(1, pedido.mesaId); // Set mesa_id
-            stmt.setDouble(2, pedido.valorTotal); // Set valor_total
+            stmt.setInt(1, pedido.mesaId);
+            stmt.setDouble(2, pedido.valorTotal);
 
             int rowsAffected = stmt.executeUpdate();
 
