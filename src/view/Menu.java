@@ -6,6 +6,7 @@ import java.util.Scanner;
 import java.util.InputMismatchException;
 
 import static model.ItemCardapio.inicializarCardapio;
+import static model.Mesa.verificarEAtualizarDisponibilidadeMesa;
 import static model.Pedido.criarComanda;
 import static model.Pedido.salvarPedido;
 
@@ -41,9 +42,6 @@ public class Menu {
                     case 1:
                         // Criar nova comanda e salvar no banco
                         pedido = criarComanda(scanner);
-                        if (pedido != null) {
-                            salvarPedido();
-                        }
                         break;
                     case 2:
                         // Ver Comanda: consultar itens do pedido no banco
@@ -64,7 +62,6 @@ public class Menu {
                                 System.out.println("\033[31mErro: Atendente não está definido.\033[0m");
                             } else {
                                 SistemaDeImpressao.imprimirComanda(pedido, atendente, gestaoFinanceira);
-                                pedido.salvarPedido();
                             }
                         } else {
                             System.out.println("\033[31mNenhuma comanda disponível para impressão.\033[0m");

@@ -99,7 +99,7 @@ public class Mesa {
 		}
 	}
 
-	public boolean verificarEAtualizarDisponibilidadeMesa(int mesaId) {
+	public static boolean verificarEAtualizarDisponibilidadeMesa(int mesaId, Pedido pedido) {
 		String selectQuery = "SELECT disponivel FROM mesas WHERE id = ?";
 		String updateQuery = "UPDATE mesas SET disponivel = false WHERE id = ?";
 
@@ -133,6 +133,7 @@ public class Mesa {
 
 						if (input.equals("s")) {
 							System.out.println("Nova comanda criada para a mesa " + mesaId + ".");
+
 							return true;
 						} else if (input.equals("n")) {
 							System.out.println("Nenhuma nova comanda foi criada.");

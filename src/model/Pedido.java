@@ -9,6 +9,7 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
 import static model.ItemCardapio.getItensCardapio;
+import static model.Mesa.verificarEAtualizarDisponibilidadeMesa;
 
 public class Pedido {
     private String mesa;
@@ -47,15 +48,10 @@ public class Pedido {
     }
 
     public static Pedido criarComanda(Scanner scanner) {
-        Mesa mesa = new Mesa();
 
         System.out.print("Digite o número da mesa escolhida: ");
         int mesaEscolhida = scanner.nextInt();
         scanner.nextLine();
-
-        if(!mesa.verificarEAtualizarDisponibilidadeMesa(mesaEscolhida)) {
-            return null;
-        };
 
         Pedido pedido = new Pedido("Mesa " + mesaEscolhida);
         System.out.println("Comanda criada para a Mesa " + mesaEscolhida + ".");
@@ -113,7 +109,7 @@ public class Pedido {
                 System.out.println("Ocorreu um erro inesperado: " + e.getMessage());
             }
         }
-
+        verificarEAtualizarDisponibilidadeMesa(mesaEscolhida, pedido);
         return pedido;
     }
 
@@ -143,14 +139,6 @@ public class Pedido {
     }
 
     public static void salvarPedido() {
-
-        Mesa mesa = new Mesa();
-
-        if (!mesa.verificarEAtualizarDisponibilidadeMesa(idMesa)) {
-            System.out.println("Erro ao salvar pedido: não foi possível criar/verificar a mesa.");
-            return;
-        }
-
         //salvamento do pedido
         try (Connection conn = DataBaseConnection.getConnection()) {
             String sql = "INSERT INTO pedidos (mesa_id, valor_total) VALUES (?, ?)";
