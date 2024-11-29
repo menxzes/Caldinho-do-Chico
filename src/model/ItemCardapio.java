@@ -21,32 +21,32 @@ public class ItemCardapio {
 
     public static void inicializarCardapio() {
         // PETISCOS
-        adicionarItensCategoria("\033[1mPetiscos\033[0m", 
+        adicionarItensCategoria("Petiscos", 
             new String[]{"Mini Coxinhas (8 unidades)", "Torresmo", "Batata Frita com Filé", "Macaxeira Frita", "Croquetes de Costela (8 unidades)"}, 
             new float[]{30.00f, 20.00f, 45.00f, 15.00f, 40.00f});
 
         // BEBIDAS
-        adicionarItensCategoria("\033[1mBebidas\033[0m", 
+        adicionarItensCategoria("Bebidas", 
             new String[]{"Cerveja 600ml", "Cachaças (Dose)", "Sucos (Copo)", "Refrigerantes", "Água"}, 
             new float[]{17.00f, 10.00f, 10.00f, 14.00f, 6.00f});
 
         // DRINKS
-        adicionarItensCategoria("\033[1mDrinks\033[0m", 
+        adicionarItensCategoria("Drinks", 
             new String[]{"Caipirinha", "Gin Tônica", "Mojito", "Margarita", "Caipiroska"}, 
             new float[]{15.00f, 20.00f, 18.00f, 25.00f, 17.00f});
 
         // CALDINHOS
-        adicionarItensCategoria("\033[1mCaldinhos\033[0m", 
+        adicionarItensCategoria("Caldinhos", 
             new String[]{"Caldinho de Feijão", "Caldinho de Camarão", "Caldinho de Marisco", "Caldinho de Peixe", "Caldinho de Caldeirada"}, 
             new float[]{13.00f, 17.00f, 15.00f, 13.00f, 20.00f});
 
         // SOBREMESAS
-        adicionarItensCategoria("\033[1mSobremesas\033[0m", 
+        adicionarItensCategoria("Sobremesas", 
             new String[]{"Brownie com Sorvete", "Pudim", "Pavê", "Mousses", "Torta de Limão (Fatia)"}, 
             new float[]{18.00f, 13.00f, 16.00f, 13.00f, 15.00f});
 
         // PRATOS PRINCIPAIS
-        adicionarItensCategoria("\033[1mPratos Principais\033[0m", 
+        adicionarItensCategoria("Pratos Principais", 
             new String[]{"Feijoada", "Moqueca de Peixe", "Lasanha", "Carne de Sol de Bode", "Filé à Parmegiana"}, 
             new float[]{60.00f, 60.00f, 40.00f, 55.00f, 60.00f});
     }
