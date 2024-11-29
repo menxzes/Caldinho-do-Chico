@@ -91,7 +91,7 @@ public class Mesa {
 					if (disponivel) {
 						System.out.println("A mesa " + mesaId + " está marcada como disponível. Atualizando para atendida...");
 						// atualizar a disponibilidade para false
-						updateStatement.setInt(1, 0);
+						updateStatement.setBoolean(1, false);
 						updateStatement.setInt(2, mesaId);
 						int rowsAffected = updateStatement.executeUpdate();
 
