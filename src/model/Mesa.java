@@ -28,11 +28,34 @@ public class Mesa {
 		return true;
 	}
 
-	public void verificarDisponibilidadeMesas() {
-		System.out.println("\n\033[1;33m=== DISPONIBILIDADE DE MESAS ===\033[0m");
-		for (int i = 0; i < mesasOcupadas.length; i++) {
-			String status = mesasOcupadas[i] ? "\033[31mOcupada\033[0m" : "\033[32mDisponível\033[0m";
-			System.out.printf("\033[1mMesa %d: %s\n", i + 1, status);
+	public static void verificarDisponibilidadeMesas() {
+		String selectQuery = "SELECT id, disponivel FROM mesas";
+
+		try (Connection conn = DataBaseConnection.getConnection();
+			 PreparedStatement selectStatement = conn.prepareStatement(selectQuery);
+			 ResultSet resultSet = selectStatement.executeQuery()) {
+
+			boolean mesasExistem = false;
+
+			System.out.println("\n\033[1;33m=== DISPONIBILIDADE DE MESAS ===\033[0m");
+
+			while (resultSet.next()) {
+				mesasExistem = true;
+
+				int id = resultSet.getInt("id");
+				boolean disponivel = resultSet.getBoolean("disponivel");
+
+				// Exibe o status de cada mesa diretamente
+				System.out.println("Mesa " + id + " - " + (disponivel ? "Disponível" : "Indisponível"));
+			}
+
+			if (!mesasExistem) {
+				System.out.println("Nenhuma mesa encontrada.");
+			}
+
+		} catch (Exception e) {
+			System.out.println("Erro ao listar as mesas: " + e.getMessage());
+			e.printStackTrace();
 		}
 	}
 
