@@ -29,10 +29,10 @@ public class Mesa {
 	}
 
 	public void verificarDisponibilidadeMesas() {
-		System.out.println("\n--- DISPONIBILIDADE DE MESAS ---");
+		System.out.println("\n\033[1;33m=== DISPONIBILIDADE DE MESAS ===\033[0m");
 		for (int i = 0; i < mesasOcupadas.length; i++) {
-			String status = mesasOcupadas[i] ? "Ocupada" : "Disponível";
-			System.out.printf("Mesa %d: %s\n", i + 1, status);
+			String status = mesasOcupadas[i] ? "\033[31mOcupada\033[0m" : "\033[32mDisponível\033[0m";
+			System.out.printf("\033[1mMesa %d: %s\n", i + 1, status);
 		}
 	}
 
@@ -110,7 +110,7 @@ public class Mesa {
 			selectStatement.setInt(1, mesaId);
 
 			try (ResultSet resultSet = selectStatement.executeQuery()) {
-				if (resultSet.next()) {
+				if (!resultSet.next()) {
 					// pegar o valor da coluna "disponivel"
 					boolean disponivel = resultSet.getBoolean("disponivel");
 
